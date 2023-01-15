@@ -32,10 +32,6 @@ public class Pessoa {
     @JsonManagedReference 
     private List<Endereco> endereco;    
 
-    //campo que aponta objeto endereco da entidade endereco.
-    @OneToOne(mappedBy = "pessoa",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Endereco enderecoPrin;
-
     public Long getId() {
         return id;
     }

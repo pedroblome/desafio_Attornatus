@@ -13,37 +13,50 @@ import com.example.demo.repository.EnderecoRepository;
 import com.example.demo.repository.PessoasRepository;
 
 @Service
-public class EnderecoServiceImp implements EnderecoServiceInt{
+public class EnderecoServiceImp implements EnderecoServiceInt {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    @Autowired PessoasRepository pessoasRepository;
+    @Autowired
+    PessoasRepository pessoasRepository;
 
+    private void valdidaEnderecoPrin(Endereco endereco) {
 
-    private boolean validaPessoa(Endereco endereco){
-        //valida se endereco tem o campo pessoa e se esse campo pessoa tem id e esse campo id representa alguem ja criado no banc
-        if(endereco.getPessoa().getId() == null){
+        List<Endereco> enderecos = enderecoRepository.findByPessoaId(endereco.getPessoa().getId());
+        if (endereco.getEnderecoPrin() == true) {
+            enderecoRepository.setFalsePrinAdress();
+        }
+        if (enderecos.isEmpty()) {
+            endereco.setEnderecoPrin(true);
+        }
+
+    }
+
+    private boolean validaPessoa(Endereco endereco) {
+        // valida se endereco tem o campo pessoa e se esse campo pessoa tem id e esse
+        // campo id representa alguem ja criado no banc
+        if (endereco.getPessoa().getId() == null) {
             return false;
         }
         Optional<Pessoa> pessoa = pessoasRepository.findById(endereco.getPessoa().getId());
-        if(pessoa.isEmpty()){
+        if (pessoa.isEmpty()) {
             return false;
         }
         return true;
     }
 
-    private boolean validaEndereco(Endereco endereco){
-        if(Objects.isNull(endereco.getCep())){
+    private boolean validaEndereco(Endereco endereco) {
+        if (Objects.isNull(endereco.getCep())) {
             return false;
         }
-        if(Objects.isNull(endereco.getCidade())){
+        if (Objects.isNull(endereco.getCidade())) {
             return false;
         }
-        if(Objects.isNull(endereco.getLogradouro())){
+        if (Objects.isNull(endereco.getLogradouro())) {
             return false;
         }
-        if(Objects.isNull(endereco.getNumero())){
+        if (Objects.isNull(endereco.getNumero())) {
             return false;
         }
 
@@ -52,7 +65,8 @@ public class EnderecoServiceImp implements EnderecoServiceInt{
 
     @Override
     public Endereco criarEnderecoPessoa(Endereco endereco) {
-        if(validaEndereco(endereco) && validaPessoa(endereco)){
+        valdidaEnderecoPrin(endereco);
+        if (validaEndereco(endereco) && validaPessoa(endereco)) {
             Endereco enderecoCriado = enderecoRepository.save(endereco);
             return enderecoCriado;
         }
@@ -62,8 +76,8 @@ public class EnderecoServiceImp implements EnderecoServiceInt{
 
     @Override
     public Endereco editarEnderecoPessoa(Endereco endereco) {
-        //id must be informed to edit an adress
-        if(validaEndereco(endereco) && validaPessoa(endereco)){
+        // id must be informed to edit an adress
+        if (validaEndereco(endereco) && validaPessoa(endereco)) {
             Endereco enderecoCriado = enderecoRepository.save(endereco);
             return enderecoCriado;
         }
@@ -72,7 +86,7 @@ public class EnderecoServiceImp implements EnderecoServiceInt{
 
     @Override
     public List<Endereco> consultarEnderecosPessoa(Integer idPessoa) {
-                // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         return null;
     }
 
@@ -82,8 +96,4 @@ public class EnderecoServiceImp implements EnderecoServiceInt{
         return null;
     }
 
-  
-
-
-    
 }
