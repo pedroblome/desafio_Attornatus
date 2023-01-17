@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -17,12 +18,20 @@ public interface EnderecoRepository extends JpaRepository<Endereco, Long>{
     @Query("SELECT e FROM Endereco e WHERE e.pessoa.id = :pessoaId")
     List<Endereco> findByPessoaId(@Param("pessoaId") Long pessoaId);
 
-    // @Query("UPDATE Endereco_TB SET enderecoPrin = false;")
-    // void setFalsePrinAdress();
+
+    @Query("SELECT e, p FROM Endereco e JOIN e.pessoa p")
+    List<Endereco> showAllAdress();
+
+
+    @Query("SELECT e FROM Endereco e WHERE e.pessoa.id = :pessoaId and e.enderecoPrin = true")
+    Endereco findByPessoaIdPrinEndere(@Param("pessoaId") Long pessoaId);
+
+    
     @Modifying
-@Transactional
-@Query("UPDATE Endereco_TB SET enderecoPrin = false")
-void setFalsePrinAdress();
+    @Transactional
+    @Query("UPDATE Endereco SET enderecoPrin = false")
+    void setFalsePrinAdress();
+
 
 
     

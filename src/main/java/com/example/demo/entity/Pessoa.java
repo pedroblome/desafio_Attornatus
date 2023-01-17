@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "pessoa_tb")
+@Table(name = "pessoa")
 public class Pessoa {
     public Pessoa() {
     }
@@ -28,7 +28,8 @@ public class Pessoa {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pessoa", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+
     @JsonManagedReference 
     private List<Endereco> endereco;    
 

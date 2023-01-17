@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "endereco_tb")
+@Table(name = "endereco")
 public class Endereco {
 
     public Endereco() {

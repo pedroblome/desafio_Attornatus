@@ -85,15 +85,29 @@ public class EnderecoServiceImp implements EnderecoServiceInt {
     }
 
     @Override
-    public List<Endereco> consultarEnderecosPessoa(Integer idPessoa) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Endereco> consultarEnderecosPessoa(Long idPessoa) {
+        List<Endereco> enderecos = enderecoRepository.findByPessoaId(idPessoa);
+        if(Objects.isNull(enderecos)){
+            return null;
+        }
+        return enderecos;
     }
 
     @Override
-    public Endereco consultarEnderecoPrinPessoa(Integer idPessoa) {
-        // TODO Auto-generated method stub
-        return null;
+    public Endereco consultarEnderecoPrinPessoa(Long idPessoa) {
+        Endereco enderecoPrin = enderecoRepository.findByPessoaIdPrinEndere(idPessoa);
+        if(Objects.isNull(enderecoPrin)){
+            return null;
+        }
+        return enderecoPrin;
+
+    }
+
+    @Override
+    public List<Endereco> listarEnderecos() {
+        
+        return enderecoRepository.showAllAdress();
+        // return enderecoRepository.showAllAdress();
     }
 
 }
