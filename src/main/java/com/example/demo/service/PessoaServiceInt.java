@@ -14,6 +14,6 @@ public interface PessoaServiceInt {
     public Pessoa editarPessoa(Pessoa pessoa);
     public Optional<Pessoa> consultarPessoa(Long id);
     public List<Pessoa> listarPessoas();
-    public boolean deletearPessoa(Long id);
+    public boolean deletarPessoa(Long id);
 
 }

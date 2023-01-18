@@ -51,10 +51,10 @@ Pessoa:
 body:
 
 
-   {  
-       "nome": "joao pedro",
-       "dataNascimento": "16-02-2001"
-   }
+    {  
+        "nome": "joao pedro",
+        "dataNascimento": "16-02-2001"
+    }
 
 
 
@@ -65,49 +65,26 @@ body:
 body:
 
 
-   {   "id": 1,
-       "nome": "joao pedro",
-       "dataNascimento": "16-02-2001"
-   }
+    {   "id": 1,
+        "nome": "joao pedro",
+        "dataNascimento": "16-02-2001"
+    }
 
 
 
 
 
 
-[get]consultar pessoa: http://localhost:8080/pessoa/consultarPessoa
-
-
-body:
-
-
-   {  
-       "id": 1
-   }
-
-
-
-
-
-
+[get]consultar pessoa: http://localhost:8080/pessoa/consultarPessoa/{id}
+<br>
+<br>
 [get] listar pessoas:http://localhost:8080/pessoa/listarPessoas
-
-
 Essa requisição não precisa de parametros.
-
-
-
-
-[delete]deletar pessoa: http://localhost:8080/pessoa/excluir
-
-
-body:
-
-
-   {
-       "id": 1
-   }
-
+<br>
+<br>
+[delete]deletar pessoa: http://localhost:8080/pessoa/deletarPessoa/{id}
+<br>
+<br>
 
 -----------------------------------------------------------------------------------------
 
@@ -120,46 +97,44 @@ Endereço:
 
 body:
 
-
-   {
-       "logradouro": "av manoel",
-       "cep": "72820200",
-       "numero": 1,
-       "cidade": "luziania",
-       "pessoa": {
-           "id": 1
-       }
-   }
-
-
-[put]editar endereço: http://localhost:8080/endereco/editar , para alterar esse endereço para o principal, basta passar o parâmetro enderecoPrin como true,
-que automaticamente caso a pessoa tenha outro endereço principal vai ficar falso.
+    {
+        "logradouro": "av manoel",
+        "cep": "72820200",
+        "numero": 1,
+        "cidade": "luziania",   
+        "pessoa": {
+            "id": 1
+        }
+    }
 
 
+[put]editar endereço: http://localhost:8080/endereco/editar
+<br>
+Para alterar esse endereço para o principal, basta passar o parâmetro enderecoPrin como true,
+ue automaticamente caso a pessoa tenha outro endereço principal vai ficar falso.
+<br>
 body:
 
 
-   {
-       "id": 1,
-       "logradouro": " logradouro mudado",
-       "cep": "72820200",
-       "numero": 1,
-       "cidade": "luziania",
-       "enderecoPrin": true,
-       "pessoa":{
-           "id": 1
-       }
-   }
+    {
+        "id": 1,
+        "logradouro": " logradouro mudado",
+        "cep": "72820200",
+        "numero": 1,
+        "cidade": "luziania",
+        "enderecoPrin": true,
+        "pessoa":{
+            "id": 1
+        }
+    }
 
-
-
-
+<br>
 [get]consultar endereços por pessoa: http://localhost:8080/endereco/consultarEndePessoa/{id} , sendo esse id da pessoa que tem esses endereços
 
+<br>
+<br>
 
-
-
-[get] listar todos endereços: http://localhost:8080/endereco/listarEnderecos
+[get] listar todos endereços:http://localhost:8080/endereco/listarEnderecos'
 
 
 Essa requisição não precisa de parâmetros.

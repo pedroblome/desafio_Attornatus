@@ -87,7 +87,7 @@ public class EnderecoServiceImp implements EnderecoServiceInt {
     @Override
     public List<Endereco> consultarEnderecosPessoa(Long idPessoa) {
         List<Endereco> enderecos = enderecoRepository.findByPessoaId(idPessoa);
-        if(Objects.isNull(enderecos)){
+        if (Objects.isNull(enderecos)) {
             return null;
         }
         return enderecos;
@@ -96,7 +96,7 @@ public class EnderecoServiceImp implements EnderecoServiceInt {
     @Override
     public Endereco consultarEnderecoPrinPessoa(Long idPessoa) {
         Endereco enderecoPrin = enderecoRepository.findByPessoaIdPrinEndere(idPessoa);
-        if(Objects.isNull(enderecoPrin)){
+        if (Objects.isNull(enderecoPrin)) {
             return null;
         }
         return enderecoPrin;
@@ -105,9 +105,20 @@ public class EnderecoServiceImp implements EnderecoServiceInt {
 
     @Override
     public List<Endereco> listarEnderecos() {
-        
+
         return enderecoRepository.showAllAdress();
         // return enderecoRepository.showAllAdress();
+    }
+
+    @Override
+    public Boolean deletarEndereco(Long idEndereco) {
+        Optional<Endereco> enderecoDeletar = enderecoRepository.findById(idEndereco);
+
+        if (enderecoDeletar.isEmpty()) {
+            return false;
+        }
+        enderecoRepository.deleteById(idEndereco);
+        return true;
     }
 
 }

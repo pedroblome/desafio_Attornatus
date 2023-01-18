@@ -14,5 +14,6 @@ public interface EnderecoServiceInt {
     public List<Endereco> consultarEnderecosPessoa(Long idPessoa);
     public List<Endereco> listarEnderecos();
     public Endereco consultarEnderecoPrinPessoa(Long idPessoa);
+    public Boolean deletarEndereco(Long idEndereco);
     
 }

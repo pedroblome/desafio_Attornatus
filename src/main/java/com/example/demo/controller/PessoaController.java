@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,9 +45,9 @@ public class PessoaController {
 
     }
 
-    @GetMapping("/consultarPessoa")
-    public ResponseEntity<?> consultarPessoa(@RequestBody Pessoa pessoa) {
-        Optional<Pessoa> pessoaConsultada = pessoaService.consultarPessoa(pessoa.getId());
+    @GetMapping("/consultarPessoa/{id}")
+    public ResponseEntity<?> consultarPessoa(@PathVariable Long id) {
+        Optional<Pessoa> pessoaConsultada = pessoaService.consultarPessoa(id);
         {
             if (pessoaConsultada.isEmpty()) {
                 return ResponseEntity.badRequest().body("erro ao consultar pessoa.");
@@ -66,13 +67,14 @@ public class PessoaController {
         }
 
     }
+    @DeleteMapping("/deletarPessoa/{id}")
+    public ResponseEntity<?> deletarPessoa(@PathVariable Long id){
+        if(!pessoaService.deletarPessoa(id)){
+            return ResponseEntity.badRequest().body("erro ao deletar pessoa.");
 
-    @DeleteMapping("/exluir")
-    public ResponseEntity<?> excluirPessoa(@RequestBody Pessoa pessoa) {
-        if (pessoaService.deletearPessoa(pessoa.getId())) {
-            return ResponseEntity.badRequest().body("erro ao excluir pessoa.");
         }
-        return ResponseEntity.ok().body("exluido com sucesso!");
+        return ResponseEntity.ok("pessoa deletado com sucesso!");
 
     }
+
 }
